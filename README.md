@@ -1,25 +1,6 @@
-# supacentre_app
+https://pusher.com/tutorials/local-data-flutter
 
-A new Flutter project.
+https://stackoverflow.com/questions/41369633/how-can-i-save-to-local-storage-using-flutter
 
-https://flutterawesome.com/burnoff-app-in-flutter-inspired-by-a-design-in-uplabs/
-https://github.com/huextrat/BurnOff
-https://github.com/Solido/awesome-flutter
-https://flutterawesome.com/
-https://proandroiddev.com/flutter-thursday-02-beautiful-list-ui-and-detail-page-a9245f5ceaf0
-
-
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.dev/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+https://flutter.dev/docs/cookbook/persistence/key-value
 
