@@ -11,8 +11,19 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  int _cIndex = 0;
   Color mainColor = const Color(0xff3C3261);
 
+  //***************************************** */
+  // Various functions.
+  void _incrementTab(index) {
+    setState(() {
+      _cIndex = index;
+    });
+  }
+
+  //***************************************** */
+  // Create sections of screen.
   Widget createAppBar() {
     return new AppBar(
       elevation: 0.3,
@@ -49,7 +60,8 @@ class _MyHomePageState extends State<MyHomePage> {
           'Roman Conversion',
           style: TextStyle(color: Colors.white),
         ),
-        shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(25.0)),
+        shape: new RoundedRectangleBorder(
+            borderRadius: new BorderRadius.circular(25.0)),
         color: Colors.lightGreen,
         onPressed: () {
           Navigator.push(
@@ -89,11 +101,44 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+  Widget createBottomNavBar(BuildContext context) {
+    return BottomNavigationBar(
+      currentIndex: _cIndex,
+      type: BottomNavigationBarType.shifting,
+      items: [
+        BottomNavigationBarItem(
+          icon: Icon(Icons.ac_unit, color: Color.fromARGB(255, 0, 0, 0)),
+          title: new Text(''),
+          backgroundColor: Colors.indigo,
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.ac_unit, color: Color.fromARGB(255, 0, 0, 0)),
+          title: new Text(''),
+          backgroundColor: Colors.amber,
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.ac_unit, color: Color.fromARGB(255, 0, 0, 0)),
+          title: new Text(''),
+          backgroundColor: Colors.indigo,
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.access_alarm, color: Color.fromARGB(255, 0, 0, 0)),
+          title: new Text(''),
+          backgroundColor: Colors.indigo,
+        ),
+      ],
+      onTap: (index) {
+        _incrementTab(index);
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: createAppBar(),
       body: createBody(),
+      bottomNavigationBar: createBottomNavBar(context),
     );
   }
 }
