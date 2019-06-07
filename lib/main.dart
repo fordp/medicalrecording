@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 // import 'package:flutter/rendering.dart';
 
-import './pages/home_widget.dart';
+import './pages/container_page.dart';
 
 void main() {
   // debugPaintSizeEnabled = true;
@@ -20,7 +20,7 @@ class App extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.lightGreen,
       ),
-      home: Home(title: 'Medical Recording'),
+      home: ContainerPage(title: 'Medical Recording'),
     );
   }
 }
