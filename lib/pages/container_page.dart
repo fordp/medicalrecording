@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kids_app/pages/home.dart';
+import 'package:kids_app/pages/new_page.dart';
 import 'package:kids_app/pages/roman_conversion.dart';
 
 import './placeholder_widget.dart';
@@ -18,7 +19,8 @@ class _ContainerPageState extends State<ContainerPage> {
   int _currentIndex = 0;
   final List<Widget> _children = [
     Home(), // Home
-    PlaceholderWidget(Colors.green), // New
+    // PlaceholderWidget(Colors.green), // New
+    NewPage(),
     RomanConversion(), // View
   ];
 

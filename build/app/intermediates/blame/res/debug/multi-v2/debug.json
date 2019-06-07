@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/data/development/flutter/medicalrecording/build/app/intermediates/res/merged/debug/values_values.arsc.flat",
+            "outputFile": "H:\\development\\flutter\\medicalrecording\\build\\app\\intermediates\\res\\merged\\debug\\values_values.arsc.flat",
             "map": [
                 {
-                    "source": "/data/development/flutter/medicalrecording/android/app/src/main/res/values/styles.xml",
+                    "source": "H:\\development\\flutter\\medicalrecording\\android\\app\\src\\main\\res\\values\\styles.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
