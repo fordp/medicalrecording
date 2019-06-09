@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -29,11 +30,29 @@ class _HomeState extends State<Home> {
       color: Colors.lightBlueAccent,
       child: ListView(
         children: <Widget>[
+          new Container(
+            padding: EdgeInsets.all(30.0),
+            child: new Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Flexible(
+                  child: new Text(
+                    'I will be recording my readings.',
+                    style: TextStyle(
+                      fontFamily: 'Arvo',
+                      fontWeight: FontWeight.bold,
+                      fontSize: 19.0,
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ),
         ],
       ),
     );
   }
-
 
   @override
   Widget build(BuildContext context) {
