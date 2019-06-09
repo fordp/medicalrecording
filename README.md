@@ -12,6 +12,7 @@ https://blog.brainsandbeards.com/bottom-navigation-with-a-list-screen-in-flutter
 https://joebirch.co/2019/04/29/native-flutter-experiences-bottom-navigation/
 
 
-
+Form stuff:
+https://codingwithjoe.com/building-forms-with-flutter/
 
 
