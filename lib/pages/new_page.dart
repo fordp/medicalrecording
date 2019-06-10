@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'dart:async';
 import 'package:intl/intl.dart';
 
+/// This is the new data entry page.
 class NewPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -12,100 +13,17 @@ class NewPage extends StatefulWidget {
 
 class _NewPageState extends State<NewPage> {
   final _formKey = GlobalKey<FormState>();
-  // double deviceHeight;
-  // double deviceWidth;
+  final TextEditingController _controller = new TextEditingController();
 
   // **************************************************************** //
   // Helper functions.
+  bool isValidDate(String date) {
+    if (date.isEmpty) return false;
 
-  // **************************************************************** //
-  // Screen creation area.
-  Widget createBody(BuildContext context) {
-    return Container(
-      color: Colors.lightBlue[50],
-      child: SafeArea(
-        top: false,
-        bottom: false,
-        child: Form(
-          key: _formKey,
-          autovalidate: true,
-          child: ListView(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            children: <Widget>[
-              new TextFormField(
-                decoration: InputDecoration(
-                  icon: const Icon(Icons.calendar_today),
-                  hintText: 'Enter the date.',
-                  labelText: 'Date',
-                ),
-                controller: _controller,
-                keyboardType: TextInputType.datetime,
-              ),
-              new TextFormField(
-                decoration: InputDecoration(
-                  icon: const Icon(Icons.timer),
-                  hintText: 'Enter the time.',
-                  labelText: 'Time',
-                ),
-              ),
-              new TextFormField(
-                decoration: InputDecoration(
-                  icon: const Icon(Icons.favorite_border),
-                  hintText: 'Enter Systolic value.',
-                  labelText: 'Systolic',
-                ),
-                keyboardType: TextInputType.phone,
-                inputFormatters: [
-                  WhitelistingTextInputFormatter.digitsOnly,
-                ],
-              ),
-              new TextFormField(
-                decoration: InputDecoration(
-                  icon: const Icon(Icons.favorite_border),
-                  hintText: 'Enter Diastolic value.',
-                  labelText: 'Diastolic',
-                ),
-                keyboardType: TextInputType.phone,
-                inputFormatters: [
-                  WhitelistingTextInputFormatter.digitsOnly,
-                ],
-              ),
-              new TextFormField(
-                decoration: InputDecoration(
-                  icon: const Icon(
-                    Icons.favorite,
-                    color: Colors.redAccent,
-                  ),
-                  hintText: 'Enter the Heart rate.',
-                  labelText: 'Heart Rate',
-                ),
-                keyboardType: TextInputType.phone,
-                inputFormatters: [
-                  WhitelistingTextInputFormatter.digitsOnly,
-                ],
-              ),
-              new TextFormField(
-                decoration: InputDecoration(
-                  icon: const Icon(Icons.note_add),
-                  hintText: 'Enter a note.',
-                  labelText: 'Note',
-                ),
-              ),
-              new Container(
-                padding: const EdgeInsets.only(left: 40.0, top: 20.0),
-                child: new RaisedButton(
-                  child: const Text('Submit'),
-                  onPressed: null,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
+    var d = convertToDate(date);
+    return d != null && d.isBefore(new DateTime.now());
   }
 
-  final TextEditingController _controller = new TextEditingController();
   Future _chooseDate(BuildContext context, String initialDateString) async {
     var now = new DateTime.now();
     var initialDate = convertToDate(initialDateString) ?? now;
@@ -135,11 +53,116 @@ class _NewPageState extends State<NewPage> {
     }
   }
 
+  // **************************************************************** //
+  // Screen creation area.
+  Widget createBody(BuildContext context) {
+    return Container(
+      color: Colors.lightBlue[50],
+      child: SafeArea(
+        top: false,
+        bottom: false,
+        child: Form(
+          key: _formKey,
+          autovalidate: true,
+          child: ListView(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            children: <Widget>[
+              // Date
+              new Row(
+                children: <Widget>[
+                  new Expanded(
+                    child: new TextFormField(
+                      decoration: InputDecoration(
+                        icon: const Icon(Icons.calendar_today),
+                        hintText: 'Enter the date.',
+                        labelText: 'Date',
+                      ),
+                      controller: _controller,
+                      keyboardType: TextInputType.datetime,
+                      validator: (val) => isValidDate(val) ? null : 'Not a valid date.',
+                    ),
+                  ),
+                  new IconButton(
+                    icon: new Icon(Icons.more_horiz),
+                    tooltip: 'Choose date',
+                    onPressed: (() {
+                      _chooseDate(context, _controller.text);
+                    }),
+                  ),
+                ],
+              ),
+              // Time
+              new TextFormField(
+                decoration: InputDecoration(
+                  icon: const Icon(Icons.timer),
+                  hintText: 'Enter the time.',
+                  labelText: 'Time',
+                ),
+              ),
+              // Systolic
+              new TextFormField(
+                decoration: InputDecoration(
+                  icon: const Icon(Icons.favorite_border),
+                  hintText: 'Enter Systolic value.',
+                  labelText: 'Systolic',
+                ),
+                keyboardType: TextInputType.phone,
+                inputFormatters: [
+                  WhitelistingTextInputFormatter.digitsOnly,
+                ],
+              ),
+              // Diastolic
+              new TextFormField(
+                decoration: InputDecoration(
+                  icon: const Icon(Icons.favorite_border),
+                  hintText: 'Enter Diastolic value.',
+                  labelText: 'Diastolic',
+                ),
+                keyboardType: TextInputType.phone,
+                inputFormatters: [
+                  WhitelistingTextInputFormatter.digitsOnly,
+                ],
+              ),
+              // Heart rate
+              new TextFormField(
+                decoration: InputDecoration(
+                  icon: const Icon(
+                    Icons.favorite,
+                    color: Colors.redAccent,
+                  ),
+                  hintText: 'Enter the Heart rate.',
+                  labelText: 'Heart Rate',
+                ),
+                keyboardType: TextInputType.phone,
+                inputFormatters: [
+                  WhitelistingTextInputFormatter.digitsOnly,
+                ],
+              ),
+              // Some notes
+              new TextFormField(
+                decoration: InputDecoration(
+                  icon: const Icon(Icons.note_add),
+                  hintText: 'Enter a note.',
+                  labelText: 'Note',
+                ),
+              ),
+              // Submit button
+              new Container(
+                padding: const EdgeInsets.only(left: 40.0, top: 20.0),
+                child: new RaisedButton(
+                  child: const Text('Submit'),
+                  onPressed: null,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    // deviceHeight = MediaQuery.of(context).size.height;
-    // deviceWidth = MediaQuery.of(context).size.width;
-
     return Scaffold(
       body: createBody(context),
     );

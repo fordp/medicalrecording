@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:kids_app/pages/home.dart';
+import 'package:kids_app/pages/home_page.dart';
 import 'package:kids_app/pages/new_page.dart';
 import 'package:kids_app/pages/roman_conversion.dart';
 
-import './placeholder_widget.dart';
+// import './placeholder_widget.dart';
 
 class ContainerPage extends StatefulWidget {
   ContainerPage({Key key, this.title}) : super(key: key);
@@ -19,8 +19,7 @@ class _ContainerPageState extends State<ContainerPage> {
   int _currentIndex = 0;
   final List<Widget> _children = [
     Home(), // Home
-    // PlaceholderWidget(Colors.green), // New
-    NewPage(),
+    NewPage(), //New data entry page.
     RomanConversion(), // View
   ];
 
@@ -57,30 +56,6 @@ class _ContainerPageState extends State<ContainerPage> {
       child: createAppBar(),
     );
   }
-
-  // Widget createBody() {
-  //   return ListView(
-  //     // mainAxisAlignment: MainAxisAlignment.center,
-  //     children: <Widget>[
-  //       new Container(
-  //         padding: EdgeInsets.all(30.0),
-  //         child: new Row(
-  //           crossAxisAlignment: CrossAxisAlignment.start,
-  //           mainAxisAlignment: MainAxisAlignment.start,
-  //           children: <Widget>[],
-  //         ),
-  //       ),
-  //       new Container(
-  //         padding: EdgeInsets.only(top: 30.0, left: 30.0, right: 30.0),
-  //         child: new Row(
-  //           crossAxisAlignment: CrossAxisAlignment.start,
-  //           mainAxisAlignment: MainAxisAlignment.center,
-  //           children: <Widget>[],
-  //         ),
-  //       ),
-  //     ],
-  //   );
-  // }
 
   Widget createBottomNavBar(BuildContext context) {
     return BottomNavigationBar(
