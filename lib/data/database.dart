@@ -65,7 +65,7 @@ class RecordingDatabase {
     var db = await _getDb();
     await db.rawInsert(
         'INSERT INTO '
-        '$tableName(${Recording.dbId}, ${Recording.dbDate}, ${Recording.dbTime}, ${Recording.dbSystolic}, ${Recording.dbDiastolic}, ${Recording.dbHeartrate}, ${Recording.dbNote}, ${Recording.dbCreatedAt}, ${Recording.dbUpdatedAt})'
+        '$tableName (${Recording.dbId}, ${Recording.dbDate}, ${Recording.dbTime}, ${Recording.dbSystolic}, ${Recording.dbDiastolic}, ${Recording.dbHeartrate}, ${Recording.dbNote}, ${Recording.dbCreatedAt}, ${Recording.dbUpdatedAt})'
         ' VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)',
         [
           recording.id,
