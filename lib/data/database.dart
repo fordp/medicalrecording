@@ -5,20 +5,32 @@ import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
 import '../model/recording.dart';
 
-class BookDatabase {
-  static final BookDatabase _bookDatabase = new BookDatabase._internal();
+class RecordingDatabase {
+  static final RecordingDatabase _recordingDatabase =
+      new RecordingDatabase._internal();
 
-  final String tableName = "Books";
+  final String tableName = "Recordings";
 
   Database db;
 
-  static BookDatabase get() {
-    return _bookDatabase;
+  bool didInit = false;
+
+  static RecordingDatabase get() {
+    return _recordingDatabase;
   }
 
-  BookDatabase._internal();
+  RecordingDatabase._internal();
+
+  Future<Database> _getDb() async {
+    if (!didInit) await _init();
+    return db;
+  }
 
   Future init() async {
+    return await _init();
+  }
+
+  Future _init() async {
     // Get a location using path_provider
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
     String path = join(documentsDirectory.path, "recordings.db");
@@ -27,16 +39,50 @@ class BookDatabase {
         onCreate: (Database db, int version) async {
       // When creating the db, create the table
       await db.execute("CREATE TABLE $tableName ("
-          "${Recording.db_id} STRING PRIMARY KEY,"
-          "${Recording.db_date} DATETIME,"
-          "${Recording.db_time} TEXT,"
-          "${Recording.db_systolic} INT,"
-          "${Recording.db_diastolic} INT,"
-          "${Recording.db_heartrate} INT,"
-          "${Recording.db_note} TEXT,"
-          "${Recording.db_createdat} DATETIME,"
-          "${Recording.db_updatedat} DATETIME,"
+          "${Recording.dbId} STRING PRIMARY KEY,"
+          "${Recording.dbDate} DATETIME,"
+          "${Recording.dbTime} TEXT,"
+          "${Recording.dbSystolic} INT,"
+          "${Recording.dbDiastolic} INT,"
+          "${Recording.dbHeartrate} INT,"
+          "${Recording.dbNote} TEXT,"
+          "${Recording.dbCreatedAt} DATETIME,"
+          "${Recording.dbUpdatedAt} DATETIME,"
           ")");
     });
+  }
+
+  Future<Recording> getRecording(String id) async {
+    var db = await _getDb();
+    var result = await db
+        .rawQuery('SELECT * FROM $tableName WHERE ${Recording.dbId} = "$id"');
+
+    if (result.length == 0) return null;
+
+    return new Recording.fromMap(result[0]);
+  }
+
+  Future updateBook(Recording recording) async {
+    var db = await _getDb();
+    await db.rawInsert(
+        'INSERT OR REPLACE INTO '
+        '$tableName(${Recording.dbId}, ${Recording.dbDate}, ${Recording.dbTime}, ${Recording.dbSystolic}, ${Recording.dbDiastolic}, ${Recording.dbHeartrate}, ${Recording.dbNote}, ${Recording.dbCreatedAt}, ${Recording.dbUpdatedAt})'
+        ' VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)',
+        [
+          recording.id,
+          recording.date,
+          recording.time,
+          recording.systolic,
+          recording.diastolic,
+          recording.heartrate,
+          recording.note,
+          recording.createdat,
+          recording.updatedat
+        ]);
+  }
+
+  Future close() async {
+    var db = await _getDb();
+    return db.close();
   }
 }
