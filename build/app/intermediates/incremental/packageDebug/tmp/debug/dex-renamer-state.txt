@@ -1,0 +1,4 @@
+#Tue Jun 11 21:00:32 AEST 2019
+base.0=H\:\\development\\flutter\\medicalrecording\\build\\app\\intermediates\\transforms\\dexMerger\\debug\\0
+path.0=classes.dex
+renamed.0=classes.dex

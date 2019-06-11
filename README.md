@@ -20,5 +20,10 @@ https://proandroiddev.com/flutter-how-i-built-a-simple-app-in-under-an-hour-from
 https://proandroiddev.com/flutter-bookshelf-app-part-2-personal-notes-and-database-integration-a3b47a84c57
 https://proandroiddev.com/flutter-bookshelf-app-part-3-managing-data-the-right-way-30569abf9487
 
+https://medium.com/flutter-community/using-sqlite-in-flutter-187c1a82e8b
+https://github.com/Rahiche/sqlite_demo
+
+
+
 
 

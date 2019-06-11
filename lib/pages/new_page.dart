@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:async';
 import 'package:intl/intl.dart';
+import 'package:kids_app/model/recording.dart';
+import 'package:kids_app/data/database.dart';
 
 /// This is the new data entry page.
 class NewPage extends StatefulWidget {
@@ -53,6 +55,16 @@ class _NewPageState extends State<NewPage> {
     }
   }
 
+  Future submitNewRecording(BuildContext context) async {
+    Recording record = new Recording();
+    record.id = 2;
+    record.note = "Blah blah.";
+
+    await RecordingDatabase.get().newRecording(record);
+
+    setState(() {});
+  }
+
   // **************************************************************** //
   // Screen creation area.
   Widget createBody(BuildContext context) {
@@ -79,7 +91,8 @@ class _NewPageState extends State<NewPage> {
                       ),
                       controller: _controller,
                       keyboardType: TextInputType.datetime,
-                      validator: (val) => isValidDate(val) ? null : 'Not a valid date.',
+                      validator: (val) =>
+                          isValidDate(val) ? null : 'Not a valid date.',
                     ),
                   ),
                   new IconButton(
@@ -151,7 +164,7 @@ class _NewPageState extends State<NewPage> {
                 padding: const EdgeInsets.only(left: 40.0, top: 20.0),
                 child: new RaisedButton(
                   child: const Text('Submit'),
-                  onPressed: null,
+                  onPressed: () => submitNewRecording(context),
                 ),
               ),
             ],

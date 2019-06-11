@@ -1,4 +1,4 @@
-import 'package:flutter/widgets.dart';
+// import 'package:flutter/widgets.dart';
 
 class Recording {
   static final dbId = "id";
@@ -16,14 +16,16 @@ class Recording {
   DateTime date, createdat, updatedat;
 
   Recording({
-    @required this.id,
-    @required this.createdat,
+    // @required this.id,
+    // @required this.createdat,
+    this.id,
     this.date,
     this.time = "",
     this.systolic = 0,
     this.diastolic = 0,
     this.heartrate = 0,
     this.note = "",
+    this.createdat,
     this.updatedat,
   });
 

@@ -30,24 +30,23 @@ class RecordingDatabase {
     return await _init();
   }
 
-  Future _init() async {
+  _init() async {
     // Get a location using path_provider
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
     String path = join(documentsDirectory.path, "recordings.db");
 
-    db = await openDatabase(path, version: 1,
+    return await openDatabase(path, version: 1, onOpen: (db) {},
         onCreate: (Database db, int version) async {
-      // When creating the db, create the table
       await db.execute("CREATE TABLE $tableName ("
-          "${Recording.dbId} STRING PRIMARY KEY,"
+          "${Recording.dbId} INTEGER PRIMARY KEY,"
           "${Recording.dbDate} DATETIME,"
           "${Recording.dbTime} TEXT,"
-          "${Recording.dbSystolic} INT,"
-          "${Recording.dbDiastolic} INT,"
-          "${Recording.dbHeartrate} INT,"
+          "${Recording.dbSystolic} INTEGER,"
+          "${Recording.dbDiastolic} INTEGER,"
+          "${Recording.dbHeartrate} INTEGER,"
           "${Recording.dbNote} TEXT,"
           "${Recording.dbCreatedAt} DATETIME,"
-          "${Recording.dbUpdatedAt} DATETIME,"
+          "${Recording.dbUpdatedAt} DATETIME"
           ")");
     });
   }
@@ -62,7 +61,26 @@ class RecordingDatabase {
     return new Recording.fromMap(result[0]);
   }
 
-  Future updateBook(Recording recording) async {
+  newRecording(Recording recording) async {
+    var db = await _getDb();
+    await db.rawInsert(
+        'INSERT INTO '
+        '$tableName(${Recording.dbId}, ${Recording.dbDate}, ${Recording.dbTime}, ${Recording.dbSystolic}, ${Recording.dbDiastolic}, ${Recording.dbHeartrate}, ${Recording.dbNote}, ${Recording.dbCreatedAt}, ${Recording.dbUpdatedAt})'
+        ' VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)',
+        [
+          recording.id,
+          recording.date,
+          recording.time,
+          recording.systolic,
+          recording.diastolic,
+          recording.heartrate,
+          recording.note,
+          recording.createdat,
+          recording.updatedat
+        ]);
+  }
+
+  Future updateRecording(Recording recording) async {
     var db = await _getDb();
     await db.rawInsert(
         'INSERT OR REPLACE INTO '

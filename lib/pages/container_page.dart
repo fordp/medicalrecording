@@ -3,8 +3,6 @@ import 'package:kids_app/pages/home_page.dart';
 import 'package:kids_app/pages/new_page.dart';
 import 'package:kids_app/pages/roman_conversion.dart';
 
-// import './placeholder_widget.dart';
-
 class ContainerPage extends StatefulWidget {
   ContainerPage({Key key, this.title}) : super(key: key);
   final String title;
