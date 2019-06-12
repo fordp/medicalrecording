@@ -39,14 +39,14 @@ class RecordingDatabase {
         onCreate: (Database db, int version) async {
       await db.execute("CREATE TABLE $tableName ("
           "${Recording.dbId} INTEGER PRIMARY KEY,"
-          "${Recording.dbDate} DATETIME,"
+          "${Recording.dbDate} TEXT,"
           "${Recording.dbTime} TEXT,"
           "${Recording.dbSystolic} INTEGER,"
           "${Recording.dbDiastolic} INTEGER,"
           "${Recording.dbHeartrate} INTEGER,"
           "${Recording.dbNote} TEXT,"
-          "${Recording.dbCreatedAt} DATETIME,"
-          "${Recording.dbUpdatedAt} DATETIME"
+          "${Recording.dbCreatedAt} TEXT,"
+          "${Recording.dbUpdatedAt} TEXT"
           ")");
     });
   }
