@@ -4,6 +4,7 @@ import 'dart:async';
 import 'package:intl/intl.dart';
 import 'package:kids_app/model/recording.dart';
 import 'package:kids_app/data/database.dart';
+import 'package:sqflite/sqflite.dart';
 
 /// This is the new data entry page.
 class NewPage extends StatefulWidget {
@@ -57,10 +58,24 @@ class _NewPageState extends State<NewPage> {
 
   Future submitNewRecording(BuildContext context) async {
     Recording record = new Recording();
-    record.id = 2;
+    // record.date = DateTime.utc(2019, 06, 11);
+    record.date = DateTime.utc(2019, 06, 11).toString();
+    record.time = "13:45";
+    record.systolic = 123;
+    record.diastolic = 88;
+    record.heartrate = 67;
     record.note = "Blah blah.";
+    // record.createdat = DateTime.now();
+    record.createdat = DateTime.now().toString();
+    // record.updatedat = DateTime.now();
+    record.updatedat = DateTime.now().toString();
 
-    await RecordingDatabase.get().newRecording(record);
+    var result = await RecordingDatabase.get().newRecording(record);
+    debugPrint('New recording: .$result.');
+    var resRecs = await RecordingDatabase.get().getRecordings();
+    debugPrint("resRecs........");
+    debugPrint(resRecs.toString());
+    debugPrint("resRecs........");
 
     setState(() {});
   }

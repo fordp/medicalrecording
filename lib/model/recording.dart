@@ -13,7 +13,8 @@ class Recording {
 
   int id, systolic, diastolic, heartrate;
   String time, note;
-  DateTime date, createdat, updatedat;
+  // DateTime date, createdat, updatedat;
+  String date, createdat, updatedat;
 
   Recording({
     // @required this.id,

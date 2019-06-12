@@ -1,4 +1,4 @@
-#Wed Jun 12 15:40:53 AEST 2019
-base.0=/data/development/flutter/medicalrecording/build/app/intermediates/transforms/dexMerger/debug/0
+#Wed Jun 12 18:51:57 AEST 2019
+base.0=H\:\\development\\flutter\\medicalrecording\\build\\app\\intermediates\\transforms\\dexMerger\\debug\\0
 path.0=classes.dex
 renamed.0=classes.dex
