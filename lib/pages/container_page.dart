@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kids_app/pages/home_page.dart';
-import 'package:kids_app/pages/new_page.dart';
+import 'package:kids_app/pages/new_record_page.dart';
 import 'package:kids_app/pages/roman_conversion.dart';
 
 class ContainerPage extends StatefulWidget {

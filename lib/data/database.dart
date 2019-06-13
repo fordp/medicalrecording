@@ -4,7 +4,7 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
 import '../model/recording.dart';
-import 'package:flutter/foundation.dart';
+// import 'package:flutter/foundation.dart';
 
 class RecordingDatabase {
   static final RecordingDatabase _recordingDatabase =
@@ -23,9 +23,6 @@ class RecordingDatabase {
   RecordingDatabase._internal();
 
   Future<Database> _getDb() async {
-    debugPrint("didInit =$didInit=.");
-    // if (!didInit) await _init();
-    // return db;
     if (_database != null) return _database;
 
     _database = await _init();
@@ -40,7 +37,6 @@ class RecordingDatabase {
     // Get a location using path_provider
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
     String path = join(documentsDirectory.path, "recordings.db");
-    debugPrint("path =$path=.");
 
     return await openDatabase(path, version: 1, onOpen: (db) {},
         onCreate: (Database db, int version) async {
@@ -68,23 +64,23 @@ class RecordingDatabase {
     return new Recording.fromMap(result[0]);
   }
 
-  Future<Recording> getRecordings() async {
-    debugPrint('getRecordings!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+  Future<List<Recording>> getRecordings() async {
     var db = await _getDb();
-    debugPrint('a.   .$db<--------------------------');
     var result = await db.rawQuery('SELECT * FROM $tableName');
-    debugPrint('0.   <--------------------------');
 
     if (result.length == 0) {
-      debugPrint('in the result length is 0.   <--------------------------');
       return null;
     }
-    debugPrint('1.   <--------------------------');
 
-    return new Recording.fromMap(result[0]);
+    List<Recording> recordings = [];
+    for (Map<String, dynamic> item in result) {
+      recordings.add(new Recording.fromMap(item));
+    }
+
+    return recordings;
   }
 
-  newRecording(Recording recording) async {
+  Future newRecording(Recording recording) async {
     var db = await _getDb();
 
     var table = await db.rawQuery("SELECT MAX(id)+1 as id FROM $tableName");
