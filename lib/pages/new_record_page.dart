@@ -17,6 +17,8 @@ class _NewPageState extends State<NewPage> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _controller = new TextEditingController();
 
+  String _message = "";
+
   // **************************************************************** //
   // Helper functions.
   bool isValidDate(String date) {
@@ -55,22 +57,34 @@ class _NewPageState extends State<NewPage> {
     }
   }
 
+  // **************************************************************** //
+  // Actions.
+
+  /// Submit a new record of measurements.
   Future submitNewRecording(BuildContext context) async {
     Recording record = new Recording();
-    // record.date = DateTime.utc(2019, 06, 11);
     record.date = DateTime.utc(2019, 06, 11).toString();
     record.time = "13:45";
     record.systolic = 123;
     record.diastolic = 88;
     record.heartrate = 67;
     record.note = "Blah blah.";
-    // record.createdat = DateTime.now();
     record.createdat = DateTime.now().toString();
-    // record.updatedat = DateTime.now();
     record.updatedat = DateTime.now().toString();
 
     var result = await RecordingDatabase.get().newRecording(record);
-    debugPrint('New recording: .$result.');
+    // debugPrint('New recording: .$result.');
+
+    setState(() {
+      if (result > 0) {
+        _message = 'Your new record has been saved.';
+      } else {
+        _message = 'Something went wrong and your record was not saved.';
+      }
+    });
+  }
+
+  Future getAllRecordings() async {
     // var resRecs = await RecordingDatabase.get().getRecording(result.toString());
     List<Recording> resRecs = await RecordingDatabase.get().getRecordings();
     debugPrint("resRecs........");
@@ -87,8 +101,22 @@ class _NewPageState extends State<NewPage> {
       debugPrint(resRec.updatedat);
     }
     debugPrint("resRecs........");
+  }
 
-    setState(() {});
+  // **************************************************************** //
+  // Screen Widgets.
+  Widget newRecordMessage() {
+    return Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: new Text(
+        _message,
+        style: TextStyle(
+          fontWeight: FontWeight.bold,
+          fontSize: 20,
+          color: Colors.redAccent,
+        ),
+      ),
+    );
   }
 
   // **************************************************************** //
