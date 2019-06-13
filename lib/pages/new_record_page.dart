@@ -17,6 +17,7 @@ class _NewPageState extends State<NewPage> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _controller = new TextEditingController();
 
+  Recording recording = new Recording();
   String _message = "";
 
   // **************************************************************** //
@@ -64,11 +65,11 @@ class _NewPageState extends State<NewPage> {
   Future submitNewRecording(BuildContext context) async {
     Recording record = new Recording();
     record.date = DateTime.utc(2019, 06, 11).toString();
-    record.time = "13:45";
-    record.systolic = 123;
-    record.diastolic = 88;
-    record.heartrate = 67;
-    record.note = "Blah blah.";
+    record.time = recording.time;
+    record.systolic = recording.systolic;
+    record.diastolic = recording.diastolic;
+    record.heartrate = recording.heartrate;
+    record.note = recording.note;
     record.createdat = DateTime.now().toString();
     record.updatedat = DateTime.now().toString();
 
@@ -147,6 +148,7 @@ class _NewPageState extends State<NewPage> {
                       keyboardType: TextInputType.datetime,
                       validator: (val) =>
                           isValidDate(val) ? null : 'Not a valid date.',
+                      onSaved: (val) => recording.date = val,
                     ),
                   ),
                   new IconButton(
@@ -165,6 +167,7 @@ class _NewPageState extends State<NewPage> {
                   hintText: 'Enter the time.',
                   labelText: 'Time',
                 ),
+                onSaved: (val) => recording.time = val,
               ),
               // Systolic
               new TextFormField(
@@ -177,6 +180,7 @@ class _NewPageState extends State<NewPage> {
                 inputFormatters: [
                   WhitelistingTextInputFormatter.digitsOnly,
                 ],
+                onSaved: (val) => recording.systolic = int.tryParse(val),
               ),
               // Diastolic
               new TextFormField(
@@ -189,6 +193,7 @@ class _NewPageState extends State<NewPage> {
                 inputFormatters: [
                   WhitelistingTextInputFormatter.digitsOnly,
                 ],
+                onSaved: (val) => recording.diastolic = int.tryParse(val),
               ),
               // Heart rate
               new TextFormField(
@@ -204,6 +209,7 @@ class _NewPageState extends State<NewPage> {
                 inputFormatters: [
                   WhitelistingTextInputFormatter.digitsOnly,
                 ],
+                onSaved: (val) => recording.heartrate = int.tryParse(val),
               ),
               // Some notes
               new TextFormField(
@@ -212,6 +218,7 @@ class _NewPageState extends State<NewPage> {
                   hintText: 'Enter a note.',
                   labelText: 'Note',
                 ),
+                onSaved: (val) => recording.note = val,
               ),
               // Submit button
               new Container(
@@ -221,6 +228,7 @@ class _NewPageState extends State<NewPage> {
                   onPressed: () => submitNewRecording(context),
                 ),
               ),
+              newRecordMessage(),
             ],
           ),
         ),
