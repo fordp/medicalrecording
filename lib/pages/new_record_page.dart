@@ -85,6 +85,13 @@ class _NewPageState extends State<NewPage> {
     });
   }
 
+  void clearFields() {
+    setState(() {
+      _controller.text = '';
+      _message = '';
+    });
+  }
+
   Future getAllRecordings() async {
     // var resRecs = await RecordingDatabase.get().getRecording(result.toString());
     List<Recording> resRecs = await RecordingDatabase.get().getRecordings();
@@ -221,12 +228,23 @@ class _NewPageState extends State<NewPage> {
                 onSaved: (val) => recording.note = val,
               ),
               // Submit button
-              new Container(
-                padding: const EdgeInsets.only(left: 40.0, top: 20.0),
-                child: new RaisedButton(
-                  child: const Text('Submit'),
-                  onPressed: () => submitNewRecording(context),
-                ),
+              new Row(
+                children: <Widget>[
+                  new Container(
+                    padding: const EdgeInsets.only(left: 40.0, top: 20.0, right: 40.0),
+                    child: new RaisedButton(
+                      child: const Text('Submit'),
+                      onPressed: () => submitNewRecording(context),
+                    ),
+                  ),
+                  new Container(
+                    padding: const EdgeInsets.only(left: 40.0, top: 20.0, right: 10.0),
+                    child: new RaisedButton(
+                      child: const Text('Clear'),
+                      onPressed: () => clearFields(),
+                    ),
+                  ),
+                ],
               ),
               newRecordMessage(),
             ],
